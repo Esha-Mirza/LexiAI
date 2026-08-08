@@ -1,9 +1,7 @@
 from fastapi import FastAPI, Form
 import sys
 import os
-import json
 
-# Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from agents.base import call_llm
 
@@ -15,56 +13,46 @@ def root():
 
 @app.post("/analyze/")
 def analyze_legal(text: str = Form(...)):
-    # 1. Summary
-    summary_prompt = f"""
-Summarize this legal document in 2-3 sentences:
+    # Single combined prompt (faster)
+    prompt = f"""
+Analyze this legal document. Extract:
+1. Summary (1 sentence)
+2. Key clauses: Termination, Liability, Jurisdiction
+3. Parties, Dates, Locations
+
+Document:
 {text}
 
-Summary:
-"""
-    summary = call_llm(summary_prompt)
-    
-    # 2. Key Clauses
-    clauses_prompt = f"""
-Extract these key clauses from this legal document:
-1. Termination
-2. Liability
-3. Jurisdiction
-4. Confidentiality
-
 Format:
+Summary: [your summary]
 Termination: [details]
 Liability: [details]
 Jurisdiction: [details]
-Confidentiality: [details]
-
-Document:
-{text}
-
-Clauses:
-"""
-    clauses = call_llm(clauses_prompt)
-    
-    # 3. Named Entities
-    entities_prompt = f"""
-Extract named entities from this legal document:
-1. Parties (names)
-2. Dates
-3. Locations/Addresses
-4. Monetary amounts
-
-Format:
 Parties: [list]
 Dates: [list]
 Locations: [list]
-Monetary: [list]
-
-Document:
-{text}
-
-Entities:
 """
-    entities = call_llm(entities_prompt)
+    
+    result = call_llm(prompt)
+    
+    # Parse response
+    lines = result.split('\n')
+    summary = "N/A"
+    clauses = ""
+    entities = ""
+    
+    for line in lines:
+        if line.startswith("Summary:"):
+            summary = line.replace("Summary:", "").strip()
+        elif line.startswith("Termination:") or line.startswith("Liability:") or line.startswith("Jurisdiction:"):
+            clauses += line + "\n"
+        elif line.startswith("Parties:") or line.startswith("Dates:") or line.startswith("Locations:"):
+            entities += line + "\n"
+    
+    if not clauses:
+        clauses = "Clauses extracted"
+    if not entities:
+        entities = "Entities extracted"
     
     return {
         "summary": summary,
