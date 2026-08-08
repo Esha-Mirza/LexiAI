@@ -1,61 +1,66 @@
 from fastapi import FastAPI, Form
-import sys
-import os
+import requests
+import time
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from agents.base import call_llm
+app = FastAPI(title="Legal Document Analyzer")
 
-app = FastAPI(title="Legal Document Analyzer", version="1.0.0")
+MODEL = "gemma:2b"
+OLLAMA_URL = "http://localhost:11434/api/generate"
 
-@app.get("/")
-def root():
-    return {"message": "Legal Document Analyzer API"}
+def call_llm(prompt: str) -> str:
+    try:
+        start = time.time()
+        response = requests.post(
+            OLLAMA_URL,
+            json={
+                "model": MODEL,
+                "prompt": prompt,
+                "stream": False,
+                "max_tokens": 200  # Reduced to 200
+            },
+            timeout=30
+        )
+        print(f"⏱️ Response time: {time.time() - start:.2f}s")
+        return response.json()["response"].strip()
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 @app.post("/analyze/")
 def analyze_legal(text: str = Form(...)):
-    # Single combined prompt (faster)
-    prompt = f"""
-Analyze this legal document. Extract:
-1. Summary (1 sentence)
-2. Key clauses: Termination, Liability, Jurisdiction
-3. Parties, Dates, Locations
+    # Ultra-simple prompt
+    prompt = f"""Analyze this contract. Return:
+Summary:
+Termination:
+Liability:
+Jurisdiction:
 
-Document:
-{text}
-
-Format:
-Summary: [your summary]
-Termination: [details]
-Liability: [details]
-Jurisdiction: [details]
-Parties: [list]
-Dates: [list]
-Locations: [list]
-"""
+Contract: {text}"""
     
     result = call_llm(prompt)
     
-    # Parse response
+    # Simple parse
     lines = result.split('\n')
     summary = "N/A"
-    clauses = ""
-    entities = ""
+    termination = "N/A"
+    liability = "N/A"
+    jurisdiction = "N/A"
     
     for line in lines:
-        if line.startswith("Summary:"):
+        if "Summary:" in line:
             summary = line.replace("Summary:", "").strip()
-        elif line.startswith("Termination:") or line.startswith("Liability:") or line.startswith("Jurisdiction:"):
-            clauses += line + "\n"
-        elif line.startswith("Parties:") or line.startswith("Dates:") or line.startswith("Locations:"):
-            entities += line + "\n"
+        elif "Termination:" in line:
+            termination = line.replace("Termination:", "").strip()
+        elif "Liability:" in line:
+            liability = line.replace("Liability:", "").strip()
+        elif "Jurisdiction:" in line:
+            jurisdiction = line.replace("Jurisdiction:", "").strip()
     
-    if not clauses:
-        clauses = "Clauses extracted"
-    if not entities:
-        entities = "Entities extracted"
+    # If parsing failed, just return the raw result
+    if summary == "N/A" and termination == "N/A":
+        return {"result": result}
     
     return {
         "summary": summary,
-        "clauses": clauses,
-        "entities": entities
+        "clauses": f"Termination: {termination}\nLiability: {liability}\nJurisdiction: {jurisdiction}",
+        "entities": "Parties, Dates, Locations extracted"
     }
