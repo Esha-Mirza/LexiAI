@@ -26,4 +26,5 @@ Thumbs.db
 
 # Data files
 data/*.txt
-!data/example_contract.txt
+
+memory/*.json
