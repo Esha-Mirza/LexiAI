@@ -1,5 +1,5 @@
 <div align="center">
- LexiAI
+<h1 align="center">LexiAI</h1>
 
 ### AI-Powered Legal Document Intelligence
 
