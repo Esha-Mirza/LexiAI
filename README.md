@@ -1,76 +1,54 @@
 # LexiAI
 
-> Legal Document Analysis 
+### AI-Powered Legal Document Intelligence
+
+Transform complex legal documents into clear, structured insights with AI-powered summarization, clause extraction, and entity recognition — all processed locally for enhanced privacy.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/LLM-Gemma%202B-orange?style=for-the-badge" alt="Gemma 2B">
-  <img src="https://img.shields.io/badge/Local%20AI-Ollama-black?style=for-the-badge" alt="Ollama">
-  <img src="https://img.shields.io/badge/API-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
-  <img src="https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License">
-</p>
-
-<p align="center">
-  Analyze legal documents locally with AI-powered summarization, clause extraction, and named-entity recognition.
+  <img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Gemma%202B-LLM-orange?style=for-the-badge" alt="Gemma 2B">
+  <img src="https://img.shields.io/badge/Ollama-Local%20AI-black?style=for-the-badge" alt="Ollama">
+  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/Streamlit-Frontend-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
 </p>
 
 ---
 
 ## Overview
 
-**Legal Document Intelligence** is an AI-powered application designed to simplify the analysis of contracts, agreements, case files, and other legal documents.
+**LexiAI** is a privacy-focused legal document intelligence system that uses local large language models to analyze complex legal text and transform it into structured, understandable information.
 
-The system uses a locally hosted large language model through **Ollama** to analyze legal text and extract meaningful information, including:
+Legal documents often contain lengthy clauses, complex terminology, multiple parties, dates, jurisdictions, and financial terms. LexiAI simplifies this process by automatically identifying the most important information and presenting it in a clear format.
 
-* Plain-language document summaries
-* Important legal clauses
-* Parties and organizations
-* Dates and locations
-* Laws and jurisdictions
-* Monetary amounts
-* Other relevant legal entities
+The system combines **Gemma 2B**, **Ollama**, **FastAPI**, and **Streamlit** to provide an end-to-end AI workflow for legal document analysis.
 
-The application combines a **FastAPI backend** with a **Streamlit interface**, providing a simple workflow for submitting legal text and reviewing structured AI-generated results.
-
-Because the language model runs locally, sensitive legal content can be processed without sending document data to external AI APIs.
+Instead of sending confidential documents to external AI services, LexiAI uses locally hosted inference through Ollama, making privacy a core part of the architecture.
 
 ---
 
-## Why Legal Document Intelligence?
+## What LexiAI Does
 
-Legal documents are often lengthy, complex, and difficult to review quickly.
+LexiAI transforms unstructured legal text into actionable insights through three primary analysis capabilities:
 
-This project uses local AI to reduce the time required to understand unstructured legal text by transforming documents into structured insights.
+### Document Summarization
 
-Instead of manually searching through pages of text, users can submit a document and receive:
-
-**Document → AI Analysis → Summary + Key Clauses + Entities**
-
-This makes the project useful as a foundation for legal research, contract review, document intelligence, and privacy-focused AI workflows.
-
----
-
-## Key Features
-
-### AI-Powered Document Summarization
-
-Generates concise, plain-language summaries of legal documents to help users understand the overall purpose and content of a document more quickly.
+Generates a concise, plain-language summary of the provided legal document, helping users quickly understand its purpose and overall content.
 
 ### Key Clause Extraction
 
-Identifies important contractual clauses, including:
+Identifies important legal and contractual provisions such as:
 
-* Termination
-* Liability
-* Jurisdiction
-* Payment Terms
-* Confidentiality
-* Indemnification
+* Termination clauses
+* Liability provisions
+* Confidentiality clauses
+* Payment terms
+* Jurisdiction clauses
+* Indemnification provisions
 
 ### Named Entity Extraction
 
-Extracts important entities and information such as:
+Identifies relevant entities and information within legal documents, including:
 
 * Parties
 * Organizations
@@ -80,100 +58,125 @@ Extracts important entities and information such as:
 * Jurisdictions
 * Monetary amounts
 
-### Local LLM Processing
-
-Uses **Ollama** to run the language model locally, reducing reliance on external AI APIs and keeping document processing within the local environment.
-
-### Privacy-Focused Architecture
-
-Legal documents can contain confidential information. The application is designed around local processing so document content does not need to be sent to third-party AI services.
-
-### Simple Web Interface
-
-The Streamlit interface provides an accessible workflow for submitting legal text and reviewing the generated analysis.
-
-### API-Based Architecture
-
-The FastAPI backend exposes an analysis endpoint that separates the AI processing layer from the user interface.
-
 ---
 
-## Technology Stack
+## Key Features
 
-| Technology | Purpose                                    |
-| ---------- | ------------------------------------------ |
-| Python     | Core programming language                  |
-| Gemma 2B   | Large language model for document analysis |
-| Ollama     | Local LLM runtime                          |
-| FastAPI    | Backend API                                |
-| Uvicorn    | ASGI server                                |
-| Streamlit  | Interactive web interface                  |
-| Requests   | Backend/frontend HTTP communication        |
-| Pydantic   | Data validation                            |
+* **AI-Powered Analysis** — Uses a local LLM to understand and analyze legal text.
+* **Document Summarization** — Converts lengthy legal documents into concise summaries.
+* **Clause Intelligence** — Extracts important contractual and legal clauses.
+* **Entity Recognition** — Identifies parties, organizations, dates, locations, laws, and financial information.
+* **Local LLM Processing** — Runs inference locally through Ollama.
+* **Privacy-Focused** — Legal document content can remain within the local environment.
+* **FastAPI Backend** — Provides a clean API layer for document analysis.
+* **Streamlit Interface** — Provides an accessible interface for interacting with the system.
 
 ---
 
 ## Architecture
 
-The application follows a simple client-server architecture:
-
 ```text
-                    ┌──────────────────────┐
-                    │     User / Browser   │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │     Streamlit UI     │
-                    │      Frontend        │
-                    └──────────┬───────────┘
-                               │
-                               │ HTTP Request
-                               ▼
-                    ┌──────────────────────┐
-                    │      FastAPI         │
-                    │       Backend        │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │       Ollama         │
-                    │     Local LLM        │
-                    │      Gemma 2B        │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │  Structured Analysis │
-                    │                      │
-                    │  • Summary           │
-                    │  • Key Clauses       │
-                    │  • Named Entities    │
-                    └──────────────────────┘
+                         ┌─────────────────────┐
+                         │        User         │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │    Streamlit UI     │
+                         │      Frontend       │
+                         └──────────┬──────────┘
+                                    │
+                                    │ HTTP Request
+                                    ▼
+                         ┌─────────────────────┐
+                         │      FastAPI        │
+                         │       Backend       │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │       Ollama        │
+                         │    Local Runtime    │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │      Gemma 2B       │
+                         │     Local LLM       │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                 ┌────────────────────────────────────┐
+                 │          Legal Intelligence         │
+                 │                                    │
+                 │  • Document Summary                │
+                 │  • Key Clauses                     │
+                 │  • Named Entities                  │
+                 └────────────────────────────────────┘
 ```
 
 ---
 
 ## How It Works
 
+LexiAI follows a straightforward document intelligence pipeline:
+
+```text
+Legal Document
+      │
+      ▼
+Text Input
+      │
+      ▼
+FastAPI Backend
+      │
+      ▼
+Local LLM Inference
+      │
+      ▼
+Legal Text Analysis
+      │
+      ├───────────────┬────────────────┐
+      ▼               ▼                ▼
+   Summary      Key Clauses       Entities
+      │               │                │
+      └───────────────┴────────────────┘
+                      │
+                      ▼
+                Structured Results
+```
+
+### Processing Flow
+
 1. The user provides legal document text through the Streamlit interface.
 2. The frontend sends the document to the FastAPI backend.
-3. FastAPI processes the request and communicates with the locally hosted Ollama model.
-4. Gemma 2B analyzes the legal content.
-5. The system extracts:
+3. The backend prepares the content for analysis.
+4. Ollama sends the request to the locally hosted Gemma 2B model.
+5. The model analyzes the legal content.
+6. LexiAI extracts summaries, key clauses, and relevant entities.
+7. The structured results are returned to the Streamlit interface.
 
-   * A document summary
-   * Important legal clauses
-   * Relevant named entities
-6. The results are returned to the frontend.
-7. The user can review the structured analysis through the web interface.
+---
+
+## Technology Stack
+
+| Technology | Role                         |
+| ---------- | ---------------------------- |
+| Python     | Core application development |
+| Gemma 2B   | Local language model         |
+| Ollama     | Local LLM inference          |
+| FastAPI    | Backend API                  |
+| Uvicorn    | ASGI server                  |
+| Streamlit  | Interactive frontend         |
+| Requests   | HTTP communication           |
+| Pydantic   | Data validation              |
 
 ---
 
 ## Project Structure
 
 ```text
-legal-document-analyzer-ai/
+lexiAI/
 │
 ├── agents/
 │
@@ -193,28 +196,30 @@ legal-document-analyzer-ai/
 
 ---
 
-## Prerequisites
+## Getting Started
 
-Before running the application, make sure you have:
+### Prerequisites
 
-* Python 3.8 or higher
+Make sure the following are installed on your system:
+
+* Python 3.8+
 * Ollama
-* Gemma 2B model
-* At least 8 GB RAM recommended
-* Sufficient storage for the local model
+* Gemma 2B
+* Git
+* Recommended: 8 GB+ RAM
 
 ---
 
 ## Installation
 
-### 1. Clone the Repository
+### Clone the Repository
 
 ```bash
 git clone https://github.com/Esha-Mirza/legal-document-analyzer-ai.git
 cd legal-document-analyzer-ai
 ```
 
-### 2. Create a Virtual Environment
+### Create a Virtual Environment
 
 #### Windows
 
@@ -230,23 +235,25 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Install and Start Ollama
+---
 
-Install Ollama for your operating system and make sure the Ollama service is running.
+## Set Up Ollama
 
-Then pull the Gemma 2B model:
+Install Ollama and download the Gemma 2B model:
 
 ```bash
 ollama pull gemma:2b
 ```
 
-Start the Ollama service if required:
+Make sure Ollama is running before starting the application.
+
+If required, start the Ollama service with:
 
 ```bash
 ollama serve
@@ -254,9 +261,12 @@ ollama serve
 
 ---
 
-## Running the Application
+## Run LexiAI
 
-The application consists of a FastAPI backend and a Streamlit frontend.
+LexiAI consists of two main components:
+
+* FastAPI backend
+* Streamlit frontend
 
 ### Start the Backend
 
@@ -266,7 +276,7 @@ Open a terminal and run:
 uvicorn backend.main:app --reload
 ```
 
-The FastAPI server will be available at:
+The backend will be available at:
 
 ```text
 http://localhost:8000
@@ -280,45 +290,19 @@ Open another terminal and run:
 streamlit run frontend/app.py
 ```
 
-The Streamlit application will be available at:
+The interface will be available at:
 
 ```text
 http://localhost:8501
 ```
 
-Open the frontend URL in your browser to start analyzing documents.
+Open the Streamlit URL in your browser to begin analyzing legal documents.
 
 ---
 
-## Usage
+## Example
 
-### Step 1 — Open the Application
-
-Navigate to:
-
-```text
-http://localhost:8501
-```
-
-### Step 2 — Provide a Legal Document
-
-Paste legal text into the application or use the included example document.
-
-### Step 3 — Analyze
-
-Submit the document for AI-powered analysis.
-
-### Step 4 — Review the Results
-
-The application generates structured insights including:
-
-* **Summary** — A concise overview of the document
-* **Key Clauses** — Important contractual provisions
-* **Named Entities** — Parties, dates, locations, laws, and monetary values
-
----
-
-## Example Input
+### Input
 
 ```text
 This Agreement is entered into by Party A and Party B.
@@ -330,13 +314,13 @@ Liability shall be limited to direct damages only.
 This agreement shall be governed by the laws of the State of California.
 ```
 
-## Example Analysis
+### Generated Analysis
 
-### Summary
+#### Summary
 
 The agreement is between Party A and Party B. Either party can terminate the agreement with 30 days' written notice. Liability is limited to direct damages, and California law governs the agreement.
 
-### Key Clauses
+#### Key Clauses
 
 ```text
 Termination:
@@ -349,7 +333,7 @@ Jurisdiction:
 The agreement is governed by California law.
 ```
 
-### Named Entities
+#### Named Entities
 
 ```text
 Parties:
@@ -367,7 +351,7 @@ California law
 
 ## API
 
-The backend exposes an analysis endpoint for programmatic document processing.
+LexiAI exposes its analysis functionality through a FastAPI backend.
 
 ### Analyze Document
 
@@ -393,76 +377,65 @@ POST /analyze/
 }
 ```
 
-The API makes it possible to integrate the document analysis engine with other applications or interfaces beyond Streamlit.
+The API-based architecture also allows the analysis engine to be integrated into other applications or interfaces.
 
 ---
 
-## Configuration
+## Privacy-First AI
 
-The application can be configured to use different local language models supported by Ollama.
+Privacy is an important consideration when working with legal documents.
 
-For example, the model configuration can be changed in the backend:
+LexiAI uses **local LLM inference through Ollama**, allowing document analysis to take place on the user's own machine.
 
-```python
-MODEL = "gemma:2b"
-```
+This approach provides several advantages:
 
-Other compatible local models can be used depending on the implementation and available system resources.
+* No external AI API is required for inference.
+* Legal document content can remain local.
+* Sensitive documents do not need to be uploaded to a third-party AI provider.
+* The application can operate without depending on cloud-based LLM services.
 
----
-
-## Privacy & Security
-
-Legal documents may contain confidential or sensitive information.
-
-This project is designed with a **local-first processing approach**:
-
-* Documents can be processed locally.
-* The LLM runs through Ollama.
-* No external AI API key is required for the local inference workflow.
-* Document content does not need to be uploaded to a third-party AI provider.
-
-However, users should still follow appropriate security practices when processing confidential legal information on their own machines.
+> Local processing does not automatically guarantee complete security. Users should still follow appropriate security practices when handling confidential legal information.
 
 ---
 
-## Performance Considerations
+## Use Cases
 
-Local LLM inference performance depends on available hardware.
+LexiAI can serve as a foundation for a variety of legal-document workflows, including:
 
-For better performance:
-
-* Use a machine with sufficient RAM.
-* Use GPU acceleration when supported by your Ollama setup.
-* Consider a smaller model for faster inference.
-* Avoid unnecessarily large document inputs when possible.
+* Contract review
+* Legal document summarization
+* Preliminary clause analysis
+* Legal research assistance
+* Document intelligence
+* Contract information extraction
+* Privacy-focused legal AI applications
+* Legal-tech experimentation and prototyping
 
 ---
 
 ## Roadmap
 
-Potential future improvements include:
-
 * [ ] PDF document upload
-* [ ] DOCX document upload
+* [ ] DOCX document support
 * [ ] Multi-document comparison
 * [ ] Contract risk detection
 * [ ] Clause-level risk scoring
-* [ ] Highlighting potentially unusual clauses
+* [ ] Automatic identification of unusual clauses
 * [ ] Document version comparison
-* [ ] Export analysis as PDF or DOCX
-* [ ] Improved legal entity recognition
-* [ ] Authentication and user management
+* [ ] PDF/DOCX analysis export
+* [ ] Advanced legal entity recognition
 * [ ] Persistent document history
-* [ ] Advanced legal-domain models
+* [ ] User authentication
+* [ ] Support for additional local LLMs
+* [ ] Specialized legal-domain models
 
 ---
 
 ## Disclaimer
 
-This project is intended for **educational, research, and prototype purposes**.
+LexiAI is intended for **educational, research, and prototype purposes**.
 
-AI-generated analysis should not be treated as professional legal advice. Legal documents and AI-generated interpretations should always be reviewed by a qualified legal professional before making legal or business decisions.
+AI-generated analysis should not be considered legal advice. Legal documents and AI-generated interpretations should be reviewed by a qualified legal professional before being used for legal, financial, or business decisions.
 
 ---
 
@@ -472,26 +445,15 @@ This project is licensed under the **MIT License**.
 
 ---
 
-## Acknowledgments
-
-Built using:
-
-* Ollama for local LLM inference
-* Gemma 2B for language understanding
-* FastAPI for backend API development
-* Streamlit for the interactive frontend
-* Python for application development
-
----
-
 ## Author
 
 **Esha Mirza**
 
-GitHub: https://github.com/Esha-Mirza
+- **GitHub:** [Esha-Mirza](https://github.com/Esha-Mirza)
+
 
 ---
 
 <p align="center">
-  Built with Python, FastAPI, Streamlit, Ollama, and Gemma 2B.
+  <strong>LexiAI</strong> — Making legal documents easier to understand with local AI.
 </p>
