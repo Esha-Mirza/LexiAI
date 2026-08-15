@@ -16,7 +16,7 @@ Transform complex legal documents into clear, structured insights with AI-powere
 
 </div>
 
-
+---
 ## Overview
 
 **LexiAI** is a privacy-focused legal document intelligence system that uses local large language models to analyze complex legal text and transform it into structured, understandable information.
