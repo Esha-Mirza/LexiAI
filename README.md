@@ -1,3 +1,4 @@
+<div align="center">
 # LexiAI
 
 ### AI-Powered Legal Document Intelligence
@@ -13,6 +14,7 @@ Transform complex legal documents into clear, structured insights with AI-powere
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
 </p>
 
+</div>
 ---
 
 ## Overview
