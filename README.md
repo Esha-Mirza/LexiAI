@@ -15,7 +15,7 @@ Transform complex legal documents into clear, structured insights with AI-powere
 </p>
 
 </div>
----
+
 
 ## Overview
 
